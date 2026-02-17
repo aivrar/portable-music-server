@@ -158,6 +158,7 @@ if "%FFMPEG_FOUND%"=="1" echo [OK] FFmpeg already installed. && goto :step_path
 
 echo [6/8] Downloading portable FFmpeg...
 echo   Trying primary source (gyan.dev)...
+echo   Saving archive as "%FFMPEG_ZIP%"
 powershell -NoProfile -ExecutionPolicy Bypass -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; $ProgressPreference = 'SilentlyContinue'; Invoke-WebRequest -Uri '%FFMPEG_URL%' -OutFile '%FFMPEG_ZIP%'"
 
 if not exist "%FFMPEG_ZIP%" (
@@ -169,7 +170,27 @@ if not exist "%FFMPEG_ZIP%" echo WARNING: Failed to download FFmpeg from both so
 
 echo [6/8] Extracting portable FFmpeg...
 powershell -NoProfile -ExecutionPolicy Bypass -Command "Expand-Archive -Path '%FFMPEG_ZIP%' -DestinationPath '%FFMPEG_DIR%' -Force"
-del "%FFMPEG_ZIP%" 2>nul
+if errorlevel 1 (
+    echo WARNING: FFmpeg extraction failed. Audio conversion may not work.
+    echo   If needed, manually extract "%FFMPEG_ZIP%" into "%FFMPEG_DIR%".
+    goto :step_path
+)
+
+set "FFMPEG_FOUND=0"
+if exist "%FFMPEG_DIR%\bin\ffmpeg.exe" set "FFMPEG_FOUND=1"
+if exist "%FFMPEG_DIR%\ffmpeg.exe" set "FFMPEG_FOUND=1"
+for /d %%D in ("%FFMPEG_DIR%\ffmpeg-*") do if exist "%%D\bin\ffmpeg.exe" set "FFMPEG_FOUND=1"
+
+if "%FFMPEG_FOUND%"=="1" (
+    echo [OK] FFmpeg extracted successfully.
+    del "%FFMPEG_ZIP%" 2>nul
+) else (
+    echo WARNING: FFmpeg extracted but ffmpeg.exe was not found.
+    echo   Expected one of:
+    echo     %FFMPEG_DIR%\bin\ffmpeg.exe
+    echo     %FFMPEG_DIR%\ffmpeg-*\bin\ffmpeg.exe
+    echo   Manually extract "%FFMPEG_ZIP%" into "%FFMPEG_DIR%" and retry.
+)
 
 :: ============================================
 :: Step 7: Set up PATH and install requirements

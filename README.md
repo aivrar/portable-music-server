@@ -576,6 +576,12 @@ Stability AI's latent diffusion model. Maximum output duration is ~47 seconds (m
 - The gateway auto-detects GPUs via nvidia-smi. If no NVIDIA GPU is found, workers default to CPU.
 - CPU inference is significantly slower but works for all models except YuE (requires too much memory).
 
+**install.bat Step 6 FFmpeg issue (zip downloaded but not usable)**
+- Check for `ffmpeg.exe` in either location:
+- `ffmpeg\bin\ffmpeg.exe`
+- `ffmpeg\ffmpeg-*\bin\ffmpeg.exe`
+- If only `ffmpeg_portable.zip` exists, manually extract it into `ffmpeg\` (keep archive structure), then run `launcher.bat` again.
+
 **install.bat fails at requirements**
 - Check your internet connection. The installer verifies critical imports after installation and will report which packages failed.
 - Try running `install.bat` again -- it skips already-completed steps.
