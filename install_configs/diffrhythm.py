@@ -13,7 +13,7 @@ from config import FFMPEG_PATH
 
 # espeak-ng binary archive hosted on user's repo
 _ESPEAK_BIN_URL = (
-    "https://github.com/rookiemann/LocalSoundsAPI/releases/download/v1.0/bin.zip"
+    "https://github.com/aivrar/LocalSoundsAPI/releases/download/v1.0/bin.zip"
 )
 
 

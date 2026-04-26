@@ -1,6 +1,6 @@
 # Music Module
 
-![License: MIT](https://img.shields.io/github/license/rookiemann/portable-music-server) ![Platform: Windows](https://img.shields.io/badge/Platform-Windows%2010%2F11-blue) ![Python](https://img.shields.io/badge/Python-3.10%20Portable-green) ![Models](https://img.shields.io/badge/Music%20Models-8-orange)
+![License: MIT](https://img.shields.io/github/license/aivrar/portable-music-server) ![Platform: Windows](https://img.shields.io/badge/Platform-Windows%2010%2F11-blue) ![Python](https://img.shields.io/badge/Python-3.10%20Portable-green) ![Models](https://img.shields.io/badge/Music%20Models-8-orange)
 
 **Portable multi-GPU music generation server for Windows -- 8 models, one-click install, zero dependencies.**
 
